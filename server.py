@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from aiohttp import ClientSession
+from aiohttp import ClientConnectorError
 import yaml
 import json
 from urllib.parse import urlparse
@@ -33,5 +34,5 @@ async def parse_url(url: str):
                     return json.dumps(parsed)
                 except yaml.YAMLError as e:
                     raise HTTPException(status_code=400, detail="Unable to parse YAML")
-        except Exception as e:
-            raise HTTPException(status_code=500, detail="An error occurred")
+        except ClientConnectorError:
+            raise HTTPException(status_code=500, detail="A remote HTTP error occurred")
