@@ -7,6 +7,7 @@ from validators import url as url_validator
 
 app = FastAPI()
 
+
 @app.get("/")
 @app.post("/")
 async def parse_url(url: str):
