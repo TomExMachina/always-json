@@ -30,8 +30,7 @@ async def parse_url(url: str):
                 content = await response.text()
 
                 try:
-                    parsed = yaml.safe_load(content)
-                    return json.dumps(parsed)
+                    return yaml.safe_load(content)
                 except yaml.YAMLError as e:
                     raise HTTPException(status_code=400, detail="Unable to parse YAML")
         except ClientConnectorError:
